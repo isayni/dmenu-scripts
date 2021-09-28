@@ -1,5 +1,7 @@
 #!/bin/sh
-
+#
+# choose the config file to edit
+#
 DMEDITOR="alacritty -e vim"
 
 declare -a options=(
