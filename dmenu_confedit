@@ -1,0 +1,20 @@
+#!/bin/sh
+
+DMEDITOR="alacritty -e vim"
+
+declare -a options=(
+"alacritty - $HOME/.config/alacritty/alacritty.yml"
+"dunst - $HOME/.config/dunst/dunstrc"
+"picom - $HOME/.config/picom.conf"
+"qtile - $HOME/.config/qtile/config.py"
+"ranger - $HOME/.config/ranger/rc.conf"
+"vim - $HOME/.vimrc"
+"zsh - $HOME/.zshrc"
+)
+
+choice=$(printf '%s\n' "${options[@]}" | dmenu -l 7)
+
+if [ "$choice" ]; then
+    cfg=$(printf '%s\n' "${choice}" | awk '{print $NF}')
+    $DMEDITOR "$cfg"
+fi
