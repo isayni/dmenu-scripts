@@ -1,0 +1,38 @@
+#!/bin/sh
+#
+# power management script
+# options: shutdown, reboot, logut
+#
+declare -a options=(
+"cancel"
+"logout"
+"reboot"
+"shutdown"
+)
+choice=$(printf '%s\n' "${options[@]}" | dmenu -sf '#ff7a93')
+
+case $choice in
+    # "logout" basically means killing the DE's session process
+    "logout")
+        # checking all possible desktop environments
+        for DE in `ls /usr/share/xsessions/*.desktop | sed 's/.desktop$//' | awk -F'[/]' '{print $5}'`
+        do
+            # Check if the given desktop environment is running and kill it.
+            # Using the pid because some DEs may have unusal process names
+            # but they usually contain the name present in the mentioned file name
+            # e.g. xfce's session process name is: xfce4-session
+            pid=`ps -u $USER | grep $DE | awk '{print $1}'`
+            kill $pid && exit 0
+        done
+        ;;
+    "reboot")
+        systemctl reboot
+        ;;
+    "shutdown")
+        systemctl poweroff
+        ;;
+    # default
+    *)
+        exit 0
+    ;;
+esac
