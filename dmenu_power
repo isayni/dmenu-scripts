@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # power management script
-# options: shutdown, reboot, logut
+# options: shutdown, reboot, logout
 #
 declare -a options=(
 "cancel"

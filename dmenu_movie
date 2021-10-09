@@ -1,0 +1,41 @@
+#!/bin/bash
+#
+# dmenu script to quickly launch vlc
+# with a chosen movie together with
+# automatically picked subtitles
+#
+# the movie's file name must be a part
+# of the subtitle file name e.g
+# movie:
+#   /home/user/movies/Casablanca.mkv
+# subtitles:
+#   /home/user/subtitles/Casablanca - ENG.srt
+#
+# ====================================
+#
+# TODO:
+# - exclude directories from the menu ($fullPaths)
+#
+declare -a filmDirectories=(
+"/home/lenny/YTOW/films/"
+"/home/lenny/YTOW/films/tw/"
+)
+subDirectory="/home/lenny/YTOW/films/srt/"
+
+for dir in ${filmDirectories[@]};
+do
+    fullPaths+=(${dir}*)
+done
+
+for ((i = 0; i < ${#fullPaths[@]}; i++));
+do
+    titles[$i]="$i -  $(echo ${fullPaths[$i]} | awk '{n=split($0,a,"/"); print a[n]}' | sed 's/\....$//')"
+done
+
+movieIndex=$(printf '%s\n' "${titles[@]}" | dmenu -l 7 | awk '{print $1}')
+title=$(echo ${titles[$movieIndex]} | sed 's/^[0-9]* - //')
+
+movie=${fullPaths[$movieIndex]}
+subs=$(find $subDirectory -iname "*$title*" | head -1)
+
+vlc "$movie" --sub-file "$subs" &
