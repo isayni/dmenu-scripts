@@ -11,11 +11,6 @@
 # subtitles:
 #   /home/user/subtitles/Casablanca - ENG.srt
 #
-# ====================================
-#
-# TODO:
-# - exclude directories from the menu ($fullPaths)
-#
 declare -a filmDirectories=(
 "/home/lenny/YTOW/films/"
 "/home/lenny/YTOW/films/tw/"
