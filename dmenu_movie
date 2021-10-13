@@ -22,17 +22,19 @@ declare -a filmDirectories=(
 )
 subDirectory="/home/lenny/YTOW/films/srt/"
 
-for dir in ${filmDirectories[@]};
-do
-    fullPaths+=(${dir}*)
+for dir in ${filmDirectories[@]}; do
+    output=(${dir}*)
+    for ((i=0; i<${#output[@]}; i++)); do
+        [ -f "${output[$i]}" ] && fullPaths+=("${output[$i]}")
+    done
 done
 
-for ((i = 0; i < ${#fullPaths[@]}; i++));
-do
+for ((i = 0; i < ${#fullPaths[@]}; i++)); do
     titles[$i]="$i -  $(echo ${fullPaths[$i]} | awk '{n=split($0,a,"/"); print a[n]}' | sed 's/\....$//')"
 done
 
-movieIndex=$(printf '%s\n' "${titles[@]}" | dmenu -l 7 | awk '{print $1}')
+choice=$(printf '%s\n' "${titles[@]}" | dmenu -l 7) || exit 0
+movieIndex=$(echo $choice | awk '{print $1}')
 title=$(echo ${titles[$movieIndex]} | sed 's/^[0-9]* - //')
 
 movie=${fullPaths[$movieIndex]}
