@@ -2,4 +2,4 @@
 #
 # SUDO_ASKPASS variable needs to point to this file
 #
-dmenu -p "$1" -nf '#1a1b26' -nb '#1a1b26' -sf '#fb4934' <&- && echo
+dmenu -p "$1" -nf '#242424' -nb '#242424' -sf '#fb4934' <&- && echo
