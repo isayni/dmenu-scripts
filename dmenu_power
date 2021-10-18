@@ -9,7 +9,7 @@ declare -a options=(
 "reboot"
 "shutdown"
 )
-choice=$(printf '%s\n' "${options[@]}" | dmenu -sf '#ff7a93')
+choice=$(printf '%s\n' "${options[@]}" | dmenu -sf '#fb4934')
 
 case $choice in
     # "logout" basically means killing the DE's session process

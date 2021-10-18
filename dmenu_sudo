@@ -3,5 +3,5 @@
 # To be used with the dmenu_pass script
 # which acts as a prompt for the password
 #
-cmd=$(dmenu_path | dmenu "$@" -p 'sudo ' -sf '#ff7a93')
+cmd=$(dmenu_path | dmenu "$@" -p 'sudo ' -sf '#fb4934')
 sudo -A $cmd
