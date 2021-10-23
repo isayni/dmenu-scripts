@@ -2,7 +2,7 @@
 #
 # choose the config file to edit
 #
-DMEDITOR="alacritty -e vim"
+EDITOR="alacritty -e vim"
 
 declare -a options=(
 "alacritty - $HOME/.config/alacritty/alacritty.yml"
@@ -14,9 +14,5 @@ declare -a options=(
 "zsh - $HOME/.zshrc"
 )
 
-choice=$(printf '%s\n' "${options[@]}" | dmenu -l 7)
-
-if [ "$choice" ]; then
-    cfg=$(printf '%s\n' "${choice}" | awk '{print $NF}')
-    $DMEDITOR "$cfg"
-fi
+choice=$(printf '%s\n' "${options[@]}" | dmenu -l 7) || exit 0
+$EDITOR "$(echo $choice | awk '{print $NF}')"
