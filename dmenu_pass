@@ -1,5 +1,6 @@
 #!/bin/sh
 #
 # SUDO_ASKPASS variable needs to point to this file
+# 'Obfuscation font characters all look the same'
 #
-dmenu -p "$1" -nf '#242424' -nb '#242424' -sf '#fb4934' <&- && echo
+dmenu -fn "Obfuscation:pixelsize=23" -nf '#fb4934' <&- && echo

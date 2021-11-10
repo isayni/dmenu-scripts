@@ -12,6 +12,8 @@ declare -a options=(
 "ranger - $HOME/.config/ranger/rc.conf"
 "vim - $HOME/.vimrc"
 "zsh - $HOME/.zshrc"
+"conky - $HOME/.config/conky/conky.conf"
+"xprofile - $HOME/.xprofile"
 )
 
 choice=$(printf '%s\n' "${options[@]}" | dmenu -l 7) || exit 0
