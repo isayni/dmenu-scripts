@@ -3,5 +3,7 @@
 # To be used with the dmenu_pass script
 # which acts as a prompt for the password
 #
-cmd=$(dmenu_path | dmenu "$@" -p 'sudo ' -sf '#fb4934') || exit 0
+color=$(xrdb -query | grep "dmenu.sudoforeground" | awk '{print $2}')
+[[ -z $color ]] && color="#880000"
+cmd=$(dmenu_path | dmenu "$@" -p "sudo " -sf "$color") || exit 0
 sudo -A $cmd
