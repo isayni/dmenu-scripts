@@ -12,10 +12,10 @@
 #   /home/user/subtitles/Casablanca - ENG.srt
 #
 declare -a filmDirectories=(
-"/home/lenny/YTOW/films/"
-"/home/lenny/YTOW/films/tw/"
+"/media/films/"
+"/media/films/tw/"
 )
-subDirectory="/home/lenny/YTOW/films/srt/"
+subDirectory="/media/films/srt/"
 
 for dir in ${filmDirectories[@]}; do
     output=(${dir}*)
