@@ -24,15 +24,15 @@ for dir in ${filmDirectories[@]}; do
     done
 done
 
+declare -A indexes
 for ((i = 0; i < ${#fullPaths[@]}; i++)); do
-    titles[$i]="$i -  $(echo ${fullPaths[$i]} | awk '{n=split($0,a,"/"); print a[n]}' | sed 's/\....$//')"
+    indexes[$(echo ${fullPaths[$i]} | awk '{n=split($0,a,"/"); print a[n]}' | sed 's/\....$//')]="$i"
 done
 
-choice=$(printf '%s\n' "${titles[@]}" | dmenu -l 7) || exit 0
-movieIndex=$(echo $choice | awk '{print $1}')
-title=$(echo ${titles[$movieIndex]} | sed 's/^[0-9]* - //')
+chosenTitle=$(printf '%s\n' "${!indexes[@]}" | dmenu -l 7) || exit 0
+movieIndex=${indexes[$chosenTitle]}
 
 movie=${fullPaths[$movieIndex]}
-subs=$(find $subDirectory -iname "*$title*" | head -1)
+subs=$(find $subDirectory -iname "*$chosenTitle*" | head -1)
 
-vlc "$movie" --sub-file "$subs" &
+vlc "$movie" --sub-file "$subs" &> /dev/null &
