@@ -1,0 +1,11 @@
+#!/bin/bash
+#
+# dmenu script to quickly spin up an existing
+# virtual machine with libvirt and virt-manager
+#
+URI="qemu:///system"
+
+domains=$(virsh --connect $URI list --all --name)
+choice=$(printf '%s\n' $domains | dmenu -l 7) || exit 0
+virsh start $choice
+virt-manager --connect $URI --show-domain-console $choice &
